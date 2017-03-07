@@ -40,6 +40,8 @@ public class JobData {
 
             if (!values.contains(aValue)) {
                 values.add(aValue);
+            }else{
+                System.out.println("No results");
             }
         }
 
@@ -76,7 +78,7 @@ public class JobData {
 
             String aValue = row.get(column);
 
-            if (aValue.contains(value)) {
+            if (aValue.toUpperCase().contains(value.toUpperCase())) {
                 jobs.add(row);
             }
         }
@@ -123,6 +125,26 @@ public class JobData {
             System.out.println("Failed to load job data");
             e.printStackTrace();
         }
+    }
+    public static ArrayList<HashMap<String, String>> findByValue(String value) {
+
+        // load data, if not already loaded
+        loadData();
+
+        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+
+        for (HashMap<String, String> map : allJobs) {
+
+            // String aValue = row.get(column);
+            for (String i : map.values()){
+
+                if (i.toUpperCase().contains(value.toUpperCase())) {
+                    jobs.add(map);
+                    break;
+                }
+            }
+        }
+        return jobs;
     }
 
 }
